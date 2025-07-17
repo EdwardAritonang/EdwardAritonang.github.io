@@ -7,6 +7,7 @@ import {
   AssetHistory,
   Ticket,
   TicketStats,
+  Technician,
   PaginatedResponse,
   ApiResponse,
   FilterOptions,
@@ -141,6 +142,65 @@ export const ticketApi = {
   
   getStats: (): Promise<TicketStats> =>
     api.get('/tickets/stats').then(res => res.data)
+};
+
+// Technician API
+export const technicianApi = {
+  getAll: (): Promise<PaginatedResponse<Technician>> =>
+    api.get('/technicians').then(res => res.data),
+  
+  getById: (id: number): Promise<Technician> =>
+    api.get(`/technicians/${id}`).then(res => res.data),
+  
+  create: (data: Omit<Technician, 'id' | 'created_at' | 'updated_at'>): Promise<ApiResponse<Technician>> =>
+    api.post('/technicians', data).then(res => res.data),
+  
+  update: (id: number, data: Partial<Technician>): Promise<ApiResponse<Technician>> =>
+    api.put(`/technicians/${id}`, data).then(res => res.data),
+  
+  delete: (id: number): Promise<ApiResponse<void>> =>
+    api.delete(`/technicians/${id}`).then(res => res.data)
+};
+
+// Combined API object for convenience
+export const assetApi = {
+  // Assets
+  getAssets: (filters?: any): Promise<PaginatedResponse<Asset>> => assetService.getAll(filters),
+  getAsset: (id: number): Promise<ApiResponse<Asset>> => assetService.getById(id),
+  createAsset: (data: any): Promise<ApiResponse<Asset>> => assetService.create(data),
+  updateAsset: (id: number, data: any): Promise<ApiResponse<Asset>> => assetService.update(id, data),
+  deleteAsset: (id: number): Promise<ApiResponse<void>> => assetService.delete(id),
+  getAssetStats: (): Promise<AssetStats> => assetService.getStats(),
+  getAssetHistory: (id: number): Promise<PaginatedResponse<AssetHistory>> => assetService.getHistory(id),
+  
+  // Categories
+  getCategories: (): Promise<PaginatedResponse<AssetCategory>> => assetCategoryApi.getAll(),
+  getCategory: (id: number): Promise<AssetCategory> => assetCategoryApi.getById(id),
+  createCategory: (data: any): Promise<ApiResponse<AssetCategory>> => assetCategoryApi.create(data),
+  updateCategory: (id: number, data: any): Promise<ApiResponse<AssetCategory>> => assetCategoryApi.update(id, data),
+  deleteCategory: (id: number): Promise<ApiResponse<void>> => assetCategoryApi.delete(id),
+  
+  // Statuses
+  getStatuses: (): Promise<AssetStatus[]> => assetStatusApi.getAll(),
+  getStatus: (id: number): Promise<AssetStatus> => assetStatusApi.getById(id),
+  createStatus: (data: any): Promise<ApiResponse<AssetStatus>> => assetStatusApi.create(data),
+  updateStatus: (id: number, data: any): Promise<ApiResponse<AssetStatus>> => assetStatusApi.update(id, data),
+  deleteStatus: (id: number): Promise<ApiResponse<void>> => assetStatusApi.delete(id),
+  
+  // Tickets
+  getTickets: (filters?: any): Promise<PaginatedResponse<Ticket>> => ticketApi.getAll(filters),
+  getTicket: (id: number): Promise<Ticket> => ticketApi.getById(id),
+  createTicket: (data: any): Promise<ApiResponse<Ticket>> => ticketApi.create(data),
+  updateTicket: (id: number, data: any): Promise<ApiResponse<Ticket>> => ticketApi.update(id, data),
+  deleteTicket: (id: number): Promise<ApiResponse<void>> => ticketApi.delete(id),
+  getTicketStats: (): Promise<TicketStats> => ticketApi.getStats(),
+  
+  // Technicians
+  getTechnicians: (): Promise<PaginatedResponse<Technician>> => technicianApi.getAll(),
+  getTechnician: (id: number): Promise<Technician> => technicianApi.getById(id),
+  createTechnician: (data: any): Promise<ApiResponse<Technician>> => technicianApi.create(data),
+  updateTechnician: (id: number, data: any): Promise<ApiResponse<Technician>> => technicianApi.update(id, data),
+  deleteTechnician: (id: number): Promise<ApiResponse<void>> => technicianApi.delete(id),
 };
 
 export default api;
