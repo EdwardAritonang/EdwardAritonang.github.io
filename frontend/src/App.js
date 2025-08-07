@@ -5,6 +5,11 @@ import Sidebar from './components/Layout/Sidebar';
 import Header from './components/Layout/Header';
 import Dashboard from './components/Dashboard/Dashboard';
 import AssetList from './components/Assets/AssetList';
+import TicketList from './components/Tickets/TicketList';
+import UserList from './components/Users/UserList';
+import NotificationList from './components/Notifications/NotificationList';
+import ReportList from './components/Reports/ReportList';
+import MaintenanceList from './components/Maintenance/MaintenanceList';
 
 function App() {
   return (
@@ -17,10 +22,11 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/assets" element={<AssetList />} />
-              <Route path="/tickets" element={<div className="p-6"><h1 className="text-3xl font-bold text-gray-900">Tickets</h1><p className="text-gray-600">Ticket management coming soon...</p></div>} />
-              <Route path="/reports" element={<div className="p-6"><h1 className="text-3xl font-bold text-gray-900">Reports</h1><p className="text-gray-600">Reports coming soon...</p></div>} />
-              <Route path="/users" element={<div className="p-6"><h1 className="text-3xl font-bold text-gray-900">Users</h1><p className="text-gray-600">User management coming soon...</p></div>} />
-              <Route path="/notifications" element={<div className="p-6"><h1 className="text-3xl font-bold text-gray-900">Notifications</h1><p className="text-gray-600">Notifications coming soon...</p></div>} />
+              <Route path="/tickets" element={<TicketList />} />
+              <Route path="/users" element={<UserList />} />
+              <Route path="/notifications" element={<NotificationList />} />
+              <Route path="/reports" element={<ReportList />} />
+              <Route path="/maintenance" element={<MaintenanceList />} />
               <Route path="/settings" element={<div className="p-6"><h1 className="text-3xl font-bold text-gray-900">Settings</h1><p className="text-gray-600">Settings coming soon...</p></div>} />
             </Routes>
           </main>
